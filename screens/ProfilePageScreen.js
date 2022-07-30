@@ -15,6 +15,8 @@ import {
 } from "firebase/firestore";
 import { MaterialIcons } from '@expo/vector-icons';
 import { FlatList } from 'react-native-gesture-handler';
+import { useIsFocused } from "@react-navigation/native";
+
 
 
 
@@ -26,14 +28,19 @@ const wait = (timeout) => {
 
 const ProfilePageScreen = ({ navigation }) => {
 
+    const isFocused = useIsFocused();
     const [notes, setNotes] = useState([])
-    const [refreshing, setRefreshing] = useState(false);
+    const [refreshing, setRefreshing] = useState('');
     const { userProfile, addUser, userDetails, addUserDets } = useAuthStore();
 
 
     const onRefresh = useCallback(() => {
         setRefreshing(true);
-        wait(2000).then(() => setRefreshing(false));
+        wait(200).then(() => {
+
+            setRefreshing(false)
+
+        });
     }, []);
 
 
@@ -46,18 +53,20 @@ const ProfilePageScreen = ({ navigation }) => {
                 const x = response.docs.map((item) => {
                     return item.data();
                 })
-                setNotes(x)
+                setNotes(x);
             }).catch((err) => {
                 console.log(err.message);
             })
-        return notes
+
     }
 
 
 
     useEffect(() => {
-        fetchProduct()
-    }, [])
+        if (isFocused) {
+            fetchProduct();
+        }
+    }, [isFocused])
 
     console.log(notes)
 

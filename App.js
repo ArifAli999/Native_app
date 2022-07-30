@@ -22,9 +22,12 @@ import {
 } from '@tanstack/react-query';
 import ProfilePageScreen from './screens/ProfilePageScreen';
 import DetailsModal from './screens/DetailsModal';
+import ProfileScreen from './screens/ProfileScreen.js/ProfileScreen';
+import RecentlyDeleted from './screens/RecentlyDeleted'
 
 
 
+const queryClient = new QueryClient()
 
 
 const Stack = createNativeStackNavigator()
@@ -34,6 +37,13 @@ const Stack = createNativeStackNavigator()
 export default function App() {
 
 
+
+  const { userProfile, addUser, userDetails, addUserDets } = useAuthStore();
+
+
+
+
+  // Everytime userProfile changes we update the current userDetails.
   useEffect(() => {
     if (userProfile) {
       const dbRef = collection(db, "users")
@@ -51,50 +61,45 @@ export default function App() {
     }
   }, [userProfile])
 
-
-
-
-  const { userProfile, addUser, userDetails, addUserDets } = useAuthStore();
-
-
-
-
   return (
-
-    <NavigationContainer>
-      <TailwindProvider>
-        <Stack.Navigator screenOptions={{ headerShown: false }}>
-
-
-
-          {userProfile ? (<>
+    <QueryClientProvider client={queryClient}>
+      <NavigationContainer>
+        <TailwindProvider>
+          <Stack.Navigator screenOptions={{ headerShown: false }}>
 
 
-            <Stack.Screen name="main" component={MainScreen} />
-            <Stack.Screen name="Notes" component={NoteScreen} />
 
-            <Stack.Group screenOptions={{ presentation: 'modal' }}>
-              <Stack.Screen name="Details" component={DetailsModal} />
-            </Stack.Group>
-          </>
-          ) :
+            {userProfile ? (<>
 
-            <>
-              <Stack.Screen name="home" component={HomeScreen} />
-
+              <Stack.Screen name="main" component={MainScreen} />
+              <Stack.Screen name="Notes" component={NoteScreen} />
+              <Stack.Screen name="ProfilePageScreen" component={ProfilePageScreen} />
+              <Stack.Screen name="ProfileSettings" component={ProfileScreen} />
               <Stack.Group screenOptions={{ presentation: 'modal' }}>
-                <Stack.Screen name="login" component={LoginScreen} />
-              </Stack.Group><Stack.Group screenOptions={{ presentation: 'modal' }}>
-                <Stack.Screen name="register" component={RegisterScreen} />
-              </Stack.Group></>
+                <Stack.Screen name="RecentlyDeleted" component={RecentlyDeleted} />
+              </Stack.Group>
+              <Stack.Group screenOptions={{ presentation: 'modal' }}>
+                <Stack.Screen name="Details" component={DetailsModal} />
+              </Stack.Group>
+            </>
 
-          }
+            ) :
+              <>
+                <Stack.Screen name="home" component={HomeScreen} />
 
+                <Stack.Group screenOptions={{ presentation: 'modal' }}>
+                  <Stack.Screen name="login" component={LoginScreen} />
+                </Stack.Group><Stack.Group screenOptions={{ presentation: 'modal' }}>
+                  <Stack.Screen name="register" component={RegisterScreen} />
+                </Stack.Group></>
 
-        </Stack.Navigator>
-        <StatusBar hidden />
-      </TailwindProvider>
-    </NavigationContainer>
+            }
+          </Stack.Navigator>
+          <StatusBar hidden />
+        </TailwindProvider>
+      </NavigationContainer>
+    </QueryClientProvider>
+
 
 
   );

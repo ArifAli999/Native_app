@@ -19,6 +19,8 @@ import { AntDesign } from '@expo/vector-icons';
 import ProfileScreen from './ProfileScreen.js/ProfileScreen';
 import ProfilePageScreen from './ProfilePageScreen';
 import NoteScreen from './NoteScreen';
+import { Entypo } from '@expo/vector-icons';
+
 
 
 
@@ -34,7 +36,7 @@ const MainScreen = ({ navigation }) => {
 
     function MyTabBar({ state, descriptors, navigation }) {
         return (
-            <View style={{ flexDirection: 'row', position: 'absolute', bottom: 30, right: 20, left: 20, backgroundColor: '#550080', borderRadius: 200, borderWidth: 2, borderColor: '#3c005a', padding: 0 }}>
+            <View style={{ flexDirection: 'row', position: 'absolute', bottom: 40, right: 20, left: 20, backgroundColor: '#550080', borderRadius: 200, borderWidth: 2, borderColor: '#', padding: 0 }}>
                 {state.routes.map((route, index) => {
                     const { options } = descriptors[route.key];
                     const label =
@@ -73,7 +75,7 @@ const MainScreen = ({ navigation }) => {
 
 
                     return (
-                        <View className='flex-1 p-4 flex-row w-full text-center  items-center justify-center  border-[#3c005a]'
+                        <View className='flex-1  flex-row w-full text-center  items-center justify-center  border-[#3c005a]'
 
                             key={label}>
                             <TouchableOpacity
@@ -81,16 +83,19 @@ const MainScreen = ({ navigation }) => {
                                 accessibilityState={isFocused ? { selected: true } : {}}
                                 accessibilityLabel={options.tabBarAccessibilityLabel}
                                 onPress={onPress}
-
+                                className='w-full h-full  p-0'
                                 style={{ flex: 1, alignSelf: 'center', alignContent: 'center', justifyContent: 'center' }}
                             >
-                                <View className='w-full items-center justify-center mb-'>
+                                <View className='w-full items-center justify-center p-6'>
                                     {tabBarIcon === 'user' || tabBarIcon === 'logout' ? (
 
-                                        <>
 
-                                            <AntDesign name={tabBarIcon} size={22} color={isFocused ? 'white' : 'black'} />
-                                        </>
+
+                                        <AntDesign name={tabBarIcon} size={22} color={isFocused ? 'white' : 'black'} />
+
+
+
+
 
                                     ) : <Ionicons name={tabBarIcon} size={22} color={isFocused ? 'white' : 'black'} className='text-white bg-black' />}
 
@@ -134,14 +139,13 @@ const MainScreen = ({ navigation }) => {
                 tabBarActiveTintColor: '#e91e63',
                 tabBarStyle: {
                     position: 'absolute',
-                    bottom: 50,
+                    bottom: 40,
                     right: 20,
                     left: 20,
                     height: 80,
                     borderRadius: 200,
-                    backgroundColor: 'purple',
-                    borderColor: 'red',
-                    borderWidth: '2px',
+
+
 
                 },
 

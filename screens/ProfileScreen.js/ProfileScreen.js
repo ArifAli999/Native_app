@@ -60,9 +60,11 @@ const ProfileScreen = ({ navigation }) => {
 
                 <View className='mt-6 w-full justify-center rounded-md bg-black/20 border border-gray-600 items-center max-h-[95%] ' >
 
-                    <View className=' border-b p-4 border-gray-600 w-full flex-row justify-between'>
-                        <Text className='text-white font-light'>Profile Picture</Text>
-                        <AntDesign name='arrowright' size={22} color='#673ab7' />
+                    <View className=' border-b p-4 border-gray-600 w-full flex-row justify-between'
+                    >
+                        <Text className='text-white font-light'
+                            onPress={() => { navigation.navigate('RecentlyDeleted') }}>Recently Deleted</Text>
+                        <AntDesign name='arrowright' size={22} color='#673ab7' onPress={() => { navigation.navigate('RecentlyDeleted') }} />
                     </View>
                     <View className=' p-4 border-gray-600 w-full flex-row justify-between'>
                         <Text className='text-white font-light'>Profile Bio</Text>

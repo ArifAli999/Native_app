@@ -10,10 +10,12 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import {
     collection, addDoc, Timestamp, limit,
     QuerySnapshot,
-    DocumentData, query, doc, getDocs, orderBy
+    DocumentData, query, doc, getDocs, orderBy, setDoc
 } from "firebase/firestore";
 import uuid from 'react-native-uuid';
-
+import { MotiView, MotiText } from 'moti'
+import { AnimatePresence } from 'moti'
+import { useIsFocused } from '@react-navigation/native';
 
 
 
@@ -26,23 +28,11 @@ const NoteScreen = ({ navigation }) => {
     const [notes, setNotes] = useState([])
 
 
-
-
-
-
-
-
-
-
-
-
-
-
     const addToDb = () => {
         const dtref = Timestamp.now()
         const uid = uuid.v4();
         if (title && note) {
-            addDoc(collection(db, `notes`), {
+            setDoc(doc(db, `notes`, `${uid}`), {
                 title: title,
                 content: note,
                 useruid: `${userProfile.uid}`,
