@@ -16,6 +16,7 @@ import {
 import { MaterialIcons } from '@expo/vector-icons';
 import { FlatList } from 'react-native-gesture-handler';
 import { useIsFocused } from "@react-navigation/native";
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 
 
 
@@ -32,12 +33,18 @@ const ProfilePageScreen = ({ navigation }) => {
     const [notes, setNotes] = useState([])
     const [refreshing, setRefreshing] = useState('');
     const { userProfile, addUser, userDetails, addUserDets } = useAuthStore();
+    const queryClient = useQueryClient()
+
+
+
+    const { isLoading, isError, data, error } = useQuery(['posts'], () => fetchProduct())
+    console.log(data)
 
 
     const onRefresh = useCallback(() => {
         setRefreshing(true);
         wait(200).then(() => {
-
+            queryClient.invalidateQueries(['posts']);
             setRefreshing(false)
 
         });
@@ -45,26 +52,19 @@ const ProfilePageScreen = ({ navigation }) => {
 
 
 
+
     async function fetchProduct() {
         let collectionRef = collection(db, "notes");
         const q = query(collectionRef, where("useruid", "==", `${userProfile.uid}`), orderBy('createdAt', 'desc'));
-        getDocs(q)
-            .then((response) => {
-                const x = response.docs.map((item) => {
-                    return item.data();
-                })
-                setNotes(x);
-            }).catch((err) => {
-                console.log(err.message);
-            })
-
+        const querySnapshot = await getDocs(q);
+        return querySnapshot.docs.map((doc) => doc.data());
     }
 
 
 
     useEffect(() => {
         if (isFocused) {
-            fetchProduct();
+            queryClient.invalidateQueries(['posts']);
         }
     }, [isFocused])
 
@@ -78,7 +78,7 @@ const ProfilePageScreen = ({ navigation }) => {
 
                 <View className=' relative  mt-6  mb-4  flex  justify-between w-full  ' >
                     <View className="  w-full  h-fit z-50   p-2  justify-between  flex-row items-center  ">
-                        <Text className='text-white font-black   text-2xl z-[9999] '>Hey, {userDetails ? userDetails.username : 'Guest'}
+                        <Text className='text-white font-black   text-2xl z-[9999] '>Recent Notes
                         </Text>
 
 
@@ -111,7 +111,7 @@ const ProfilePageScreen = ({ navigation }) => {
                         />
                     }
                 >
-                    {notes && notes.map((n) => (
+                    {data && data.map((n) => (
                         <View className='w-full mb-6 bg-black rounded-md border border-gray-800 shadow-lg shadow-white ' key={n.postid}>
                             <View className='border-b w-full p-0 border-gray-800 flex-row items-center justify-between'>
                                 <Text className='text-purple-600 font-black p-4  text-xl' onPress={() => {

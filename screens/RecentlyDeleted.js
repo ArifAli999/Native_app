@@ -35,7 +35,6 @@ const RecentlyDeleted = ({ navigation }) => {
     }
 
 
-
     async function deleteNote(postid) {
         try {
 
@@ -48,6 +47,7 @@ const RecentlyDeleted = ({ navigation }) => {
             console.log(err.message)
         }
     }
+
 
     async function RestoreNote(postid, content, title, createdAt, user, useruid) {
         try {

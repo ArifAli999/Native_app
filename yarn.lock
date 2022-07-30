@@ -6707,6 +6707,11 @@
     "prop-types" "^15.6.2"
     "react-native-iphone-x-helper" "^1.0.3"
 
+"react-native-keyboard-aware-view@^0.0.14":
+  "integrity" "sha512-+dJwZAvQxdHelti7LXSvSwjiI4Oxox4ApkX6t1z2q0/hUZ2VV8xAoMMQBqU7SsRn02W+/FPrX6f9tG6y0L3jDA=="
+  "resolved" "https://registry.npmjs.org/react-native-keyboard-aware-view/-/react-native-keyboard-aware-view-0.0.14.tgz"
+  "version" "0.0.14"
+
 "react-native-reanimated@>= 1.0.0", "react-native-reanimated@~2.8.0":
   "integrity" "sha512-kJvf/UWLBMaGCs9X66MKq5zdFMgwx8D0nHnolbHR7s8ZnbLdb7TlQ/yuzIXqn/9wABfnwtNRI3CyaP1aHWMmZg=="
   "resolved" "https://registry.npmjs.org/react-native-reanimated/-/react-native-reanimated-2.8.0.tgz"
