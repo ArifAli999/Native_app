@@ -65,7 +65,9 @@ export default function App() {
     <QueryClientProvider client={queryClient}>
       <NavigationContainer>
         <TailwindProvider>
-          <Stack.Navigator screenOptions={{ headerShown: false }}>
+          <Stack.Navigator screenOptions={{ headerShown: false }}
+
+          >
 
 
 

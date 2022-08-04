@@ -73,6 +73,7 @@ const DetailsModal = ({ route, navigation }) => {
         }
     }
 
+
     const createTwoButtonAlert = () =>
         Alert.alert(
             "Delete Message",
@@ -89,7 +90,7 @@ const DetailsModal = ({ route, navigation }) => {
 
 
     return (
-        <View className='bg-[#16151d] h-full w-full'>
+        <View className='bg-[#16151d] h-full w-full' >
 
             <View className='w-[90%] mr-6 ml-6  h-full' key={postid}>
 
@@ -146,7 +147,7 @@ const DetailsModal = ({ route, navigation }) => {
                                 </TouchableOpacity>
                             ) : (
                                 <TouchableOpacity
-                                    className='px-4 py-4 flex items-center font-bold rounded-full w-full mt-6  bg-purple-600 border border-purple-600'
+                                    className='px-4 py-4 flex items-center font-bold rounded-full w-full mt-6  bg-purple-400 border border-purple-600'
                                     style={{ elevation: 2 }}
                                     onPress={() => {
                                         setEditable(true)

@@ -1,5 +1,5 @@
 import { View, Text, SafeAreaView, TextInput, Button, TouchableOpacity } from 'react-native'
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import useAuthStore from '../authStore';
 import { auth, db, app } from './../util/firebase'
 import { createUserWithEmailAndPassword } from 'firebase/auth'
@@ -14,6 +14,11 @@ const LoginScreen = ({ navigation }) => {
     const { userProfile, addUser, userDetails, addUserDets } = useAuthStore();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+
+
+
+    const passwordInput = useRef();
+    const emailInput = useRef(null);
 
 
     const handleSignIn = () => {
@@ -56,6 +61,8 @@ const LoginScreen = ({ navigation }) => {
                         placeholderTextColor="#383640"
                         placeholder='Email'
                         value={email}
+                        returnKeyType={'next'}
+                        onSubmitEditing={() => passwordInput.current.focus()}
                         onChangeText={text => setEmail(text)}
                     />
 
@@ -64,6 +71,9 @@ const LoginScreen = ({ navigation }) => {
                         className='p-6 border border-gray-700 rounded-3xl mb-4 mt-4 placeholder-white text-white focus:border-purple-500'
                         placeholderTextColor="#383640"
                         value={password}
+                        ref={passwordInput}
+                        returnKeyType={'go'}
+                        onSubmitEditing={() => handleSignIn()}
                         placeholder='Password'
                         onChangeText={text => setPassword(text)}
 

@@ -1,5 +1,5 @@
-import { View, Text, SafeAreaView, TextInput, Button, TouchableOpacity } from 'react-native'
-import React, { useState } from 'react'
+import { View, Text, SafeAreaView, TextInput, Button, TouchableOpacity, KeyboardAvoidingView } from 'react-native'
+import React, { useRef, useState } from 'react'
 import useAuthStore from '../authStore';
 import { auth, db, app } from './../util/firebase'
 import { createUserWithEmailAndPassword } from 'firebase/auth'
@@ -14,6 +14,9 @@ const RegisterScreen = ({ navigation }) => {
 
 
     const { userProfile, addUser, userDetails, addUserDets } = useAuthStore();
+
+    const passwordInput = useRef();
+    const emailInput = useRef();
 
     const handleSignUp = () => {
         createUserWithEmailAndPassword(auth, email, password)
@@ -66,22 +69,26 @@ const RegisterScreen = ({ navigation }) => {
 
 
     return (
+
         <SafeAreaView className="h-full w-full items-center flex-1 bg-[#16151d] ">
-            <View className='h-full w-full '>
-                <View className=' p-6 h-[100px] bg-[#16151d]'>
-                    <SafeAreaView>
-                    </SafeAreaView>
-                </View>
-                <View className=' p-4  ml-6 mr-6 leading-loose'>
+
+
+            <View className='h-full w-full  '>
+
+                <View className=' p-4  mt-6 ml-6 mr-6 leading-loose'>
                     <Text className=' font-semibold text-4xl text-white mb-2 '>Lets sign up!</Text>
-                    <Text className='font-thin text-xl text-white leading-loose ml-1'>Join our community to keep up</Text>
-                </View><View className='h-full  p-4 flex-1 mt-10 ml-6 mr-6'>
+                    <Text className='font-light text-lg text-gray-400 leading-loose ml-1'>Register to start creating your notes </Text>
+                </View>
+
+                <View className='h-full  p-4 flex-1 mt-0 ml-6 mr-6'>
 
                     <TextInput
                         className='p-6 border border-gray-700 rounded-3xl mb-4 mt-4 placeholder-white text-white focus:border-purple-500'
                         placeholderTextColor="#383640"
                         value={username}
                         placeholder='Username'
+                        returnKeyType={'next'}
+                        onSubmitEditing={() => emailInput.current.focus()}
                         onChangeText={text => setUsername(text)}
 
                     />
@@ -92,6 +99,9 @@ const RegisterScreen = ({ navigation }) => {
                         className='p-6 border border-gray-700 rounded-3xl mb-4 mt-4 placeholder-white text-white focus:border-purple-500'
                         placeholderTextColor="#383640"
                         value={email}
+                        ref={emailInput}
+                        returnKeyType={'next'}
+                        onSubmitEditing={() => passwordInput.current.focus()}
                         placeholder='Email'
                         onChangeText={text => setEmail(text)}
 
@@ -101,12 +111,18 @@ const RegisterScreen = ({ navigation }) => {
                         className='p-6 border border-gray-700 rounded-3xl mb-4 mt-4 placeholder-white text-white focus:border-purple-500'
                         placeholderTextColor="#383640"
                         value={password}
+                        ref={passwordInput}
                         placeholder='Password'
                         onChangeText={text => setPassword(text)}
 
                     />
                 </View>
-                <View className='items-center w-full  justify-center'>
+
+
+
+
+
+                <View className='items-center w-full mb-10 mt-10 justify-center'>
 
                     <TouchableOpacity
                         className='px-4 py-4 border flex items-center  font-bold rounded-full w-[80%]  bg-lime-500'
@@ -118,9 +134,11 @@ const RegisterScreen = ({ navigation }) => {
 
                 </View>
 
+
             </View>
 
-        </SafeAreaView>
+        </SafeAreaView >
+
     )
 }
 
