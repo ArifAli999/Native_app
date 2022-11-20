@@ -22,7 +22,19 @@ React native notes application
 
 
 
-<img src="https://user-images.githubusercontent.com/82163631/202925627-4bae0ca6-4205-4fcd-a9d3-e5c41668a8d8.png" width=50% height=50%>
+<img src="https://user-images.githubusercontent.com/82163631/202925627-4bae0ca6-4205-4fcd-a9d3-e5c41668a8d8.png" width=30% height=30%>
+
+<img src="https://user-images.githubusercontent.com/82163631/202926441-3b39629b-1d87-4670-adee-aeb1c92cb744.png" width=30% height=30%>
+
+
+<img src='https://user-images.githubusercontent.com/82163631/202926564-69c79cea-a576-4005-a597-a51a4b0333f7.png' width=30% height=30%>
+
+<img src='https://user-images.githubusercontent.com/82163631/202926697-3fa095ae-c8d8-4594-a561-6bdefb8ae279.png' width=30% height=30%>
+
+
+
+
+
 
 
 
